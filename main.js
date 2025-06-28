@@ -1,4 +1,3 @@
-
 const app = document.getElementById('app');
 const startDate = new Date('2025-06-27T00:00:00');
 
@@ -23,6 +22,14 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "opciones", contenido: "¿Qué representa el emoji 🏖?", opciones: ["El gym", "Cuando me dices que me quieres", "Nuestra comida favorita", "Uno de nuestros sitios prefes (la playa)"], respuesta: "Uno de nuestros sitios prefes (la playa)" },
       { tipo: "binario", contenido: "01010100 01100101 00100000 01100101 01110011 01110100 01100001 00100000 01100111 01110101 01110011 01110100 01100001 01101110 01100100 01101111 00100000 01110000 01101001 01100011 01101000 01110101 01110010 01110010 01101001 01101110 01100001 00111111 ", respuesta: "Te esta gustando pichurrina?" }
     ];
+  } else if (i === 3) {
+    pruebas = [
+      { tipo: "texto", contenido: "Suma los dígitos del candado del día anterior (DDMM) y escribe el resultado", respuesta: "11" },
+      { tipo: "texto", contenido: "Convierte los dígitos del candado del día anterior en letras del abecedario español (A=1...Ñ=15...Z=27)", respuesta: "cdff" },
+      { tipo: "opciones", contenido: "¿Qué letra corresponde al número 14 en el abecedario español?", opciones: ["Ñ", "N", "O", "M"], respuesta: "Ñ" },
+      { tipo: "candado", contenido: "Introduce la suma de 2+3+0+6 (usa el candado)", respuesta: "11" },
+      { tipo: "texto", contenido: "Escribe una palabra que resuma cómo te has sentido haciendo este juego", respuesta: "libre" }
+    ];
   } else {
     pruebas = [
       { tipo: "texto", contenido: `Adivina esta palabra clave del día ${i}`, respuesta: `respuesta${i}` },
@@ -45,64 +52,58 @@ function renderDay(dayKey) {
   let html = `<h1>${data.mensaje}</h1>`;
 
   data.pruebas.forEach((p, i) => {
-    html += `<div class='pregunta'><b>Prueba ${i + 1} (${p.tipo}):</b><br/>${p.contenido}`;
+    html += `<div><b>Prueba ${i + 1} (${p.tipo}):</b><br/>${p.contenido}</div>`;
 
     if (p.tipo === 'opciones') {
       p.opciones.forEach((op, j) => {
         html += `<div><input type='radio' name='respuesta${i}' value='${op}' id='r${i}_${j}'><label for='r${i}_${j}'> ${op}</label></div>`;
       });
+    } else if (p.tipo === 'candado') {
+      html += `<input type='number' id='respuesta${i}' placeholder='Ej: 2306' />`;
     } else if (p.tipo === 'candado-ui') {
-      html += `<div id="candado-ui-${i}" class="candado-ui">`;
+      html += `<div id="candado-ui">`;
       for (let j = 0; j < 4; j++) {
         html += `
           <div>
-            <button onclick="ajustarDigito(${i}, ${j}, 1)">+</button><br/>
-            <span id="digito-${i}-${j}">0</span><br/>
-            <button onclick="ajustarDigito(${i}, ${j}, -1)">-</button>
-          </div>
-        `;
+            <button onclick="modificarDigito(${i}, ${j}, 1)">+</button><br/>
+            <span id="digit-${i}-${j}">0</span><br/>
+            <button onclick="modificarDigito(${i}, ${j}, -1)">-</button>
+          </div>`;
       }
       html += `</div>`;
     } else if (p.tipo === 'drag') {
+      const frases = ["Sanxenxo", "Madrid", "Tu casa", "Deporte"];
       const respuestas = ["Cita", "Pulpeira", "Tommy", "Paddel"];
-      const preguntas = ["Sanxenxo", "Madrid", "Tu casa", "Deporte"];
-      html += `<div class="drag-container"><div class="drag-col" id="drag-origen-${i}">`;
-      respuestas.forEach((r, j) => {
-        html += `<div class="draggable" draggable="true" ondragstart="drag(event)" id="drag-${i}-${j}">${r}</div>`;
-      });
-      html += `</div><div class="drag-col" id="drag-destino-${i}" ondrop="drop(event, ${i})" ondragover="allowDrop(event)"></div></div>`;
+      html += `
+        <div class="drag-container">
+          <div class="drag-col" id="drop-col-${i}">
+            ${frases.map((f, j) => `<div class="drop-zone" data-frase="${f}">${f}</div>`).join("")}
+          </div>
+          <div class="drag-col" id="drag-col-${i}">
+            ${respuestas.map(r => `<div class="draggable" draggable="true">${r}</div>`).join("")}
+          </div>
+        </div>
+      `;
     } else {
       html += `<input type='text' id='respuesta${i}' placeholder='Tu respuesta...' />`;
     }
-
-    html += `</div>`;
   });
 
   html += `<button onclick='verificar("${dayKey}")'>Comprobar respuestas</button>`;
   app.innerHTML = html;
+
+  inicializarDragAndDrop();
 }
 
-function ajustarDigito(i, j, delta) {
-  const span = document.getElementById(`digito-${i}-${j}`);
-  let valor = parseInt(span.textContent);
-  valor = (valor + delta + 10) % 10;
-  span.textContent = valor;
+function modificarDigito(pIndex, dIndex, cambio) {
+  const id = `digit-${pIndex}-${dIndex}`;
+  let valor = parseInt(document.getElementById(id).innerText);
+  valor = (valor + cambio + 10) % 10;
+  document.getElementById(id).innerText = valor;
 }
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev, i) {
-  ev.preventDefault();
-  const data = ev.dataTransfer.getData("text");
-  const elem = document.getElementById(data);
-  const destino = document.getElementById(`drag-destino-${i}`);
-  if (!destino.contains(elem)) destino.appendChild(elem);
+function obtenerCandadoRespuesta(pIndex) {
+  return Array.from({ length: 4 }, (_, j) => document.getElementById(`digit-${pIndex}-${j}`).innerText).join('');
 }
 
 function verificar(dayKey) {
@@ -116,17 +117,19 @@ function verificar(dayKey) {
       const selected = document.querySelector(`input[name='respuesta${i}']:checked`);
       valor = selected ? selected.value.trim().toLowerCase() : '';
     } else if (p.tipo === 'candado-ui') {
-      for (let j = 0; j < 4; j++) {
-        valor += document.getElementById(`digito-${i}-${j}`).textContent;
-      }
+      valor = obtenerCandadoRespuesta(i);
     } else if (p.tipo === 'drag') {
-      const hijos = document.getElementById(`drag-destino-${i}`).children;
-      const preguntas = ["Sanxenxo", "Madrid", "Tu casa", "Deporte"];
-      const respuestas = Array.from(hijos).map((h, idx) => `${preguntas[idx]}:${h.textContent}`);
-      valor = respuestas.join(',');
+      valor = [];
+      const zones = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
+      zones.forEach(zone => {
+        const frase = zone.dataset.frase;
+        const contenido = zone.textContent.replace(frase, "").trim();
+        valor.push(`${frase}:${contenido}`);
+      });
+      valor = valor.join(",");
     } else {
       const input = document.getElementById('respuesta' + i);
-      valor = input ? input.value.trim().toLowerCase() : '';
+      if (input) valor = input.value.trim().toLowerCase();
     }
 
     if (p.tipo !== 'sentimental' && valor.toLowerCase() !== p.respuesta.toLowerCase()) {
@@ -143,24 +146,51 @@ function verificar(dayKey) {
   }
 }
 
+function inicializarDragAndDrop() {
+  const draggables = document.querySelectorAll(".draggable");
+  const dropZones = document.querySelectorAll(".drop-zone");
+
+  draggables.forEach(d => {
+    d.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("text/plain", d.textContent);
+    });
+  });
+
+  dropZones.forEach(z => {
+    z.addEventListener("dragover", e => e.preventDefault());
+    z.addEventListener("drop", e => {
+      e.preventDefault();
+      const texto = e.dataTransfer.getData("text/plain");
+      const original = z.dataset.frase;
+      const correcto = days.dia2.pruebas.find(p => p.tipo === "drag").respuesta;
+      const pares = correcto.split(",");
+      const esperado = pares.find(p => p.startsWith(original))?.split(":")[1];
+      if (texto === esperado) {
+        z.textContent = `${original}: ${texto}`;
+        z.classList.add("correcto");
+      } else {
+        z.classList.add("incorrecto");
+        setTimeout(() => location.reload(), 1000);
+      }
+    });
+  });
+}
+
 function renderHome() {
   let html = "<h1>🌟 Elige un día desbloqueado 🌟</h1>";
   const today = new Date();
-
   for (let i = 1; i <= 11; i++) {
     const key = `dia${i}`;
     const unlockDate = new Date(startDate);
     unlockDate.setDate(startDate.getDate() + i - 1);
     const completado = localStorage.getItem(key) === 'completo';
     const prevDone = i === 1 || localStorage.getItem(`dia${i - 1}`) === 'completo';
-
     if (today >= unlockDate && prevDone) {
       html += `<button onclick='renderDay("${key}")'>Día ${i} ${completado ? "✅" : ""}</button>`;
     } else {
       html += `<button disabled>Día ${i} 🔒</button>`;
     }
   }
-
   html += "<br/><br/><a href='diploma.html'>🎓 Ver diploma</a>";
   app.innerHTML = html;
 }
