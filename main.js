@@ -123,7 +123,7 @@ function verificar(dayKey) {
       const zones = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
       zones.forEach(zone => {
         const frase = zone.dataset.frase;
-        const contenido = zone.textContent.replace(frase, "").trim();
+        const contenido = zone.textContent.replace(frase + ":", "").trim();
         valor.push(`${frase}:${contenido}`);
       });
       valor = valor.join(",");
