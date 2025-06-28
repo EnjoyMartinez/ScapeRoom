@@ -12,15 +12,23 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "texto", contenido: "¿Cómo nos llamamos de broma?", respuesta: "Maricon/a" },
       { tipo: "texto", contenido: "¿Quién es nuestro westy?", respuesta: "Tommy" }
     ];
-  } else if (i === 2) {
+  }else if (i === 2) {
     pruebas = [
-      { tipo: "opciones", contenido: "¿Qué comida compartimos más veces?", opciones: ["Sushi", "Pizza del Rapizz", "Ensalada", "Croquetas"], respuesta: "Pizza del Rapizz" },
-      { tipo: "opciones", contenido: "¿Qué canción podría sonar mientras cocinamos?", opciones: ["Despechá", "La Bachata", "La Inocente", "Todo de ti"], respuesta: "La Inocente" },
-      { tipo: "opciones", contenido: "¿Cuál fue el primer viaje que hicimos juntos?", opciones: ["Santiago", "Sanxenxo", "Vigo", "O Grove"], respuesta: "Sanxenxo" },
-      { tipo: "candado", contenido: "¿Qué día exacto nos conocimos? (formato DDMM)", respuesta: "2306" },
-      { tipo: "relacionar", contenido: "Relaciona: Sanxenxo → ?, LUXUS → ?, Tu casa → ?, Rapizz → ?", respuesta: "Sanxenxo:Beso,LUXUS:Primera vez,Tu casa:Siesta,Rapizz:Pizza" },
-      { tipo: "opciones", contenido: "¿Qué representa el emoji 🏖?", opciones: ["Nuestro perrito", "Cuando me dices que me quieres", "Nuestra comida favorita", "El lugar del primer beso"], respuesta: "El lugar del primer beso" },
-      { tipo: "binario", contenido: "01010100 01100101 00100000 01100001 01101101 01101111", respuesta: "Te amo" }
+      { tipo: "opciones", contenido: "¿Qué comida compartimos más veces?", opciones: ["Macarrones", "Pizza del Rapizz", "Hamburguesa", "Croquetas"], respuesta: "Pizza del Rapizz" },
+      { tipo: "opciones", contenido: "¿Qué canción podría sonar mientras cocinamos?", opciones: ["Queeedate", "La Bachata", "La Vaca Lola", "Todo de ti"], respuesta: "La Vaca Lola" },
+      { tipo: "opciones", contenido: "¿Cuál fue el primer viaje que hicimos juntos?", opciones: ["Alicante", "Sanxenxo", "Madrid", "O Grove"], respuesta: "Sanxenxo" },
+      { tipo: "candado", contenido: "¿Qué día exacto nos conocimos? (formato DDMM)", respuesta: "2911" },
+      { tipo: "relacionar", contenido: "Relaciona: Sanxenxo → ?, Madrid → ?, Tu casa → ?, Deporte → ?", respuesta: "Sanxenxo:Cita,Madrid:Pulpeira,Tu casa:Tommy,Deporte:Paddel" },
+      { tipo: "opciones", contenido: "¿Qué representa el emoji 🏖?", opciones: ["El gym", "Cuando me dices que me quieres", "Nuestra comida favorita", "Uno de nuestros sitios prefes (la playa)"], respuesta: "Uno de nuestros sitios prefes (la playa)" },
+      { tipo: "binario", contenido: "01010100 01100101 00100000 01100101 01110011 01110100 01100001 00100000 01100111 01110101 01110011 01110100 01100001 01101110 01100100 01101111 00100000 01110000 01101001 01100011 01101000 01110101 01110010 01110010 01101001 01101110 01100001 00111111 ", respuesta: "Te esta gustando pichurrina?" }
+    ];
+  } else if (i === 3) {
+    pruebas = [
+      { tipo: "texto", contenido: "Suma los dígitos del candado del día anterior (DDMM) y escribe el resultado", respuesta: "11" },
+      { tipo: "texto", contenido: "Convierte los dígitos del candado del día anterior en letras del abecedario español (A=1...Ñ=15...Z=27)", respuesta: "cdff" },
+      { tipo: "opciones", contenido: "¿Qué letra corresponde al número 14 en el abecedario español?", opciones: ["Ñ", "N", "O", "M"], respuesta: "Ñ" },
+      { tipo: "candado", contenido: "Introduce la suma de 2+3+0+6 (usa el candado)", respuesta: "11" },
+      { tipo: "texto", contenido: "Escribe una palabra que resuma cómo te has sentido haciendo este juego", respuesta: "libre" }
     ];
   } else {
     pruebas = [
