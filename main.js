@@ -18,7 +18,7 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "opciones", contenido: "¿Qué canción podría sonar mientras cocinamos?", opciones: ["Queeedate", "La Bachata", "La Vaca Lola", "Todo de ti"], respuesta: "La Vaca Lola" },
       { tipo: "opciones", contenido: "¿Cuál fue el primer viaje que hicimos juntos?", opciones: ["Alicante", "Sanxenxo", "Madrid", "O Grove"], respuesta: "Sanxenxo" },
       { tipo: "candado-ui", contenido: "¿Qué día exacto nos conocimos? (formato DDMM)", respuesta: "2911" },
-      { tipo: "drag", contenido: "Relaciona: Sanxenxo → ?, Madrid → ?, Tu casa → ?, Deporte → ?", respuesta: "Tu casa:Tommy,Sanxenxo:Cita,Madrid:Pulpeira,Deporte:Paddel" },
+      { tipo: "drag", contenido: "Relaciona: Sanxenxo → ?, Madrid → ?, Tu casa → ?, Deporte → ?", respuesta: "Tu casa:Tommy,Madrid:Pulpeira,Sanxenxo:Cita,Deporte:Paddel" },
       { tipo: "opciones", contenido: "¿Qué representa el emoji 🏖?", opciones: ["El gym", "Cuando me dices que me quieres", "Nuestra comida favorita", "Uno de nuestros sitios prefes (la playa)"], respuesta: "Uno de nuestros sitios prefes (la playa)" },
       { tipo: "binario", contenido: "01010100 01100101 00100000 01100101 01110011 01110100 01100001 00100000 01100111 01110101 01110011 01110100 01100001 01101110 01100100 01101111 00100000 01110000 01101001 01100011 01101000 01110101 01110010 01110010 01101001 01101110 01100001 00111111 ", respuesta: "Te esta gustando pichurrina?" }
     ];
@@ -28,7 +28,7 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "texto", contenido: "Convierte los dígitos del candado del día anterior en letras del abecedario español (A=1...Ñ=15...Z=27)", respuesta: "cdff" },
       { tipo: "opciones", contenido: "¿Qué letra corresponde al número 14 en el abecedario español?", opciones: ["Ñ", "N", "O", "M"], respuesta: "Ñ" },
       { tipo: "candado", contenido: "Introduce la suma de 2+3+0+6 (usa el candado)", respuesta: "11" },
-      { tipo: "texto", contenido: "Escribe una palabra que resuma cómo te has sentido haciendo este juego", respuesta: "libre" }
+      { tipo: "libre", contenido: "Escribe una frase que resuma cómo te has sentido haciendo este juego" }
     ];
   } else {
     pruebas = [
@@ -123,7 +123,7 @@ function verificar(dayKey) {
       const zones = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
       zones.forEach(zone => {
         const frase = zone.dataset.frase;
-        const contenido = zone.textContent.replace(frase + ":", "").trim();
+        const contenido = zone.textContent.replace(frase, "").trim();
         valor.push(`${frase}:${contenido}`);
       });
       valor = valor.join(",");
@@ -132,7 +132,10 @@ function verificar(dayKey) {
       if (input) valor = input.value.trim().toLowerCase();
     }
 
-    if (p.tipo !== 'sentimental' && valor.toLowerCase() !== p.respuesta.toLowerCase()) {
+    // Tipos que no se validan estrictamente
+    const esLibre = p.tipo === 'sentimental' || p.tipo === 'libre';
+
+    if (!esLibre && valor.toLowerCase() !== (p.respuesta || "").toLowerCase()) {
       todoBien = false;
     }
   });
