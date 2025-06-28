@@ -12,7 +12,7 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "texto", contenido: "¿Cómo nos llamamos de broma?", respuesta: "Maricon/a" },
       { tipo: "texto", contenido: "¿Quién es nuestro westy?", respuesta: "Tommy" }
     ];
-  }else if (i === 2) {
+  } else if (i === 2) {
     pruebas = [
       { tipo: "opciones", contenido: "¿Qué comida compartimos más veces?", opciones: ["Macarrones", "Pizza del Rapizz", "Hamburguesa", "Croquetas"], respuesta: "Pizza del Rapizz" },
       { tipo: "opciones", contenido: "¿Qué canción podría sonar mientras cocinamos?", opciones: ["Queeedate", "La Bachata", "La Vaca Lola", "Todo de ti"], respuesta: "La Vaca Lola" },
