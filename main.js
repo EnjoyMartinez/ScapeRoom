@@ -1,3 +1,4 @@
+
 const app = document.getElementById('app');
 const startDate = new Date('2025-06-27T00:00:00');
 
@@ -22,14 +23,6 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "opciones", contenido: "¿Qué representa el emoji 🏖?", opciones: ["El gym", "Cuando me dices que me quieres", "Nuestra comida favorita", "Uno de nuestros sitios prefes (la playa)"], respuesta: "Uno de nuestros sitios prefes (la playa)" },
       { tipo: "binario", contenido: "01010100 01100101 00100000 01100101 01110011 01110100 01100001 00100000 01100111 01110101 01110011 01110100 01100001 01101110 01100100 01101111 00100000 01110000 01101001 01100011 01101000 01110101 01110010 01110010 01101001 01101110 01100001 00111111 ", respuesta: "Te esta gustando pichurrina?" }
     ];
-  } else if (i === 3) {
-    pruebas = [
-      { tipo: "texto", contenido: "Suma los dígitos del candado del día anterior (DDMM) y escribe el resultado", respuesta: "11" },
-      { tipo: "texto", contenido: "Convierte los dígitos del candado del día anterior en letras del abecedario español (A=1...Ñ=15...Z=27)", respuesta: "cdff" },
-      { tipo: "opciones", contenido: "¿Qué letra corresponde al número 14 en el abecedario español?", opciones: ["Ñ", "N", "O", "M"], respuesta: "Ñ" },
-      { tipo: "candado", contenido: "Introduce la suma de 2+3+0+6 (usa el candado)", respuesta: "11" },
-      { tipo: "texto", contenido: "Escribe una palabra que resuma cómo te has sentido haciendo este juego", respuesta: "libre" }
-    ];
   } else {
     pruebas = [
       { tipo: "texto", contenido: `Adivina esta palabra clave del día ${i}`, respuesta: `respuesta${i}` },
@@ -48,38 +41,99 @@ function renderDay(dayKey) {
     app.innerHTML = "<h1>⏳ Aún no se ha desbloqueado el siguiente bloque</h1>";
     return;
   }
+
   let html = `<h1>${data.mensaje}</h1>`;
+
   data.pruebas.forEach((p, i) => {
-    html += `<div><b>Prueba ${i + 1} (${p.tipo}):</b><br/>${p.contenido}</div>`;
+    html += `<div class='pregunta'><b>Prueba ${i + 1} (${p.tipo}):</b><br/>${p.contenido}`;
+
     if (p.tipo === 'opciones') {
       p.opciones.forEach((op, j) => {
         html += `<div><input type='radio' name='respuesta${i}' value='${op}' id='r${i}_${j}'><label for='r${i}_${j}'> ${op}</label></div>`;
       });
-    } else if (p.tipo === 'candado') {
-      html += `<input type='number' id='respuesta${i}' placeholder='Ej: 2306' />`;
+    } else if (p.tipo === 'candado-ui') {
+      html += `<div id="candado-ui-${i}" class="candado-ui">`;
+      for (let j = 0; j < 4; j++) {
+        html += `
+          <div>
+            <button onclick="ajustarDigito(${i}, ${j}, 1)">+</button><br/>
+            <span id="digito-${i}-${j}">0</span><br/>
+            <button onclick="ajustarDigito(${i}, ${j}, -1)">-</button>
+          </div>
+        `;
+      }
+      html += `</div>`;
+    } else if (p.tipo === 'drag') {
+      const respuestas = ["Cita", "Pulpeira", "Tommy", "Paddel"];
+      const preguntas = ["Sanxenxo", "Madrid", "Tu casa", "Deporte"];
+      html += `<div class="drag-container"><div class="drag-col" id="drag-origen-${i}">`;
+      respuestas.forEach((r, j) => {
+        html += `<div class="draggable" draggable="true" ondragstart="drag(event)" id="drag-${i}-${j}">${r}</div>`;
+      });
+      html += `</div><div class="drag-col" id="drag-destino-${i}" ondrop="drop(event, ${i})" ondragover="allowDrop(event)"></div></div>`;
     } else {
       html += `<input type='text' id='respuesta${i}' placeholder='Tu respuesta...' />`;
     }
+
+    html += `</div>`;
   });
+
   html += `<button onclick='verificar("${dayKey}")'>Comprobar respuestas</button>`;
   app.innerHTML = html;
+}
+
+function ajustarDigito(i, j, delta) {
+  const span = document.getElementById(`digito-${i}-${j}`);
+  let valor = parseInt(span.textContent);
+  valor = (valor + delta + 10) % 10;
+  span.textContent = valor;
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev, i) {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData("text");
+  const elem = document.getElementById(data);
+  const destino = document.getElementById(`drag-destino-${i}`);
+  if (!destino.contains(elem)) destino.appendChild(elem);
 }
 
 function verificar(dayKey) {
   const data = days[dayKey];
   let todoBien = true;
+
   data.pruebas.forEach((p, i) => {
-    let valor;
+    let valor = "";
+
     if (p.tipo === 'opciones') {
       const selected = document.querySelector(`input[name='respuesta${i}']:checked`);
       valor = selected ? selected.value.trim().toLowerCase() : '';
+    } else if (p.tipo === 'candado-ui') {
+      for (let j = 0; j < 4; j++) {
+        valor += document.getElementById(`digito-${i}-${j}`).textContent;
+      }
+    } else if (p.tipo === 'drag') {
+      const hijos = document.getElementById(`drag-destino-${i}`).children;
+      const preguntas = ["Sanxenxo", "Madrid", "Tu casa", "Deporte"];
+      const respuestas = Array.from(hijos).map((h, idx) => `${preguntas[idx]}:${h.textContent}`);
+      valor = respuestas.join(',');
     } else {
-      valor = document.getElementById('respuesta' + i).value.trim().toLowerCase();
+      const input = document.getElementById('respuesta' + i);
+      valor = input ? input.value.trim().toLowerCase() : '';
     }
-    if (p.tipo !== 'sentimental' && valor !== p.respuesta.toLowerCase()) {
+
+    if (p.tipo !== 'sentimental' && valor.toLowerCase() !== p.respuesta.toLowerCase()) {
       todoBien = false;
     }
   });
+
   if (todoBien) {
     localStorage.setItem(dayKey, 'completo');
     alert("🎉 ¡Bien hecho! Has completado el día.");
@@ -92,18 +146,21 @@ function verificar(dayKey) {
 function renderHome() {
   let html = "<h1>🌟 Elige un día desbloqueado 🌟</h1>";
   const today = new Date();
+
   for (let i = 1; i <= 11; i++) {
     const key = `dia${i}`;
     const unlockDate = new Date(startDate);
     unlockDate.setDate(startDate.getDate() + i - 1);
     const completado = localStorage.getItem(key) === 'completo';
     const prevDone = i === 1 || localStorage.getItem(`dia${i - 1}`) === 'completo';
+
     if (today >= unlockDate && prevDone) {
       html += `<button onclick='renderDay("${key}")'>Día ${i} ${completado ? "✅" : ""}</button>`;
     } else {
       html += `<button disabled>Día ${i} 🔒</button>`;
     }
   }
+
   html += "<br/><br/><a href='diploma.html'>🎓 Ver diploma</a>";
   app.innerHTML = html;
 }
