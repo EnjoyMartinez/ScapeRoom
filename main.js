@@ -72,7 +72,7 @@ function renderDay(dayKey) {
       }
       html += `</div>`;
     } else if (p.tipo === 'drag') {
-      const frases = ["Sanxenxo", "Madrid", "Tu casa", "Deporte"];
+      const frases = ["Deporte", "Tu casa", "Sanxenxo", "Madrid"];
       const respuestas = ["Cita", "Pulpeira", "Tommy", "Paddel"];
       html += `
         <div class="drag-container">
