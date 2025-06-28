@@ -1,71 +1,44 @@
-body {
-  margin: 0;
-  padding: 20px;
-  font-family: 'Arial', sans-serif;
-  background-color: #fff0f5;
-  color: #333;
-}
-
-h1 {
-  font-size: 24px;
-  color: #d63384;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-button {
-  background-color: #ffb3c1;
-  border: none;
-  padding: 10px 15px;
-  font-size: 16px;
-  margin: 20px auto;
-  display: block;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-button:hover {
-  background-color: #ff8fa3;
-}
-
-input[type="text"],
-input[type="number"] {
-  margin-top: 5px;
+/* Candado con botones */
+#candado-ui {
+  display: flex;
+  justify-content: center;
   margin-bottom: 15px;
-  padding: 8px;
-  width: 95%;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  display: block;
 }
 
-input[type="radio"] {
-  margin-right: 5px;
+#candado-ui div {
+  margin: 0 5px;
+  text-align: center;
 }
 
-label {
-  font-size: 15px;
-  display: inline-block;
-  margin-bottom: 8px;
-  cursor: pointer;
+#candado-ui button {
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  margin: 3px 0;
 }
 
-div {
-  margin-bottom: 20px;
-  background-color: #ffe4ec;
-  padding: 12px;
+/* Drag & drop */
+.drag-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.drag-col {
+  width: 45%;
+  min-height: 100px;
+  padding: 10px;
+  background-color: #ffeef2;
+  border: 2px dashed #f08080;
   border-radius: 10px;
 }
 
-a {
-  display: block;
+.draggable {
+  padding: 8px;
+  margin: 5px;
+  background-color: #ffd6e0;
+  border: 1px solid #d63384;
+  border-radius: 5px;
+  cursor: grab;
   text-align: center;
-  margin-top: 30px;
-  color: #d63384;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-a:hover {
-  text-decoration: underline;
 }
