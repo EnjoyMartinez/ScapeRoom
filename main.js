@@ -126,13 +126,17 @@ function verificar(dayKey) {
         const contenido = zone.textContent.replace(frase, "").trim();
         valor.push(`${frase}:${contenido}`);
       });
-      valor = valor.join(",");
+      const esperado = (p.respuesta || "").split(",").map(e => e.trim()).sort().join(",");
+      const recibido = valor.sort().join(",");
+      if (esperado.toLowerCase() !== recibido.toLowerCase()) {
+        todoBien = false;
+      }
+      return;
     } else {
       const input = document.getElementById('respuesta' + i);
       if (input) valor = input.value.trim().toLowerCase();
     }
 
-    // Tipos que no se validan estrictamente
     const esLibre = p.tipo === 'sentimental' || p.tipo === 'libre';
 
     if (!esLibre && valor.toLowerCase() !== (p.respuesta || "").toLowerCase()) {
