@@ -169,7 +169,7 @@ function inicializarDragAndDrop() {
       e.preventDefault();
       const texto = e.dataTransfer.getData("text/plain");
       const original = z.dataset.frase;
-      const correcto = days.dia2.pruebas.find(p => p.tipo === "drag").respuesta;
+      const correcto = days[dayKey].pruebas.find(p => p.tipo === "drag").respuesta;
       const pares = correcto.split(",");
       const esperado = pares.find(p => p.startsWith(original))?.split(":")[1];
       if (texto === esperado) {
