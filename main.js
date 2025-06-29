@@ -142,25 +142,24 @@ function verificar(dayKey) {
       valor = obtenerCandadoRespuesta(i);
     } else if (p.tipo === 'drag') {
       const zonas = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
-      const paresJugador = zonas.map ? zonas.map(z => {
+      const paresJugador = [];
+
+      zonas.forEach(z => {
         const frase = z.dataset.frase;
-        const texto = z.textContent.replace(frase, "").trim();
-        return `${frase}:${texto}`;
-      }) : Array.from(zonas).map(z => {
-        const frase = z.dataset.frase;
-        const texto = z.textContent.replace(frase, "").trim();
-        return `${frase}:${texto}`;
+        const textoCompleto = z.textContent.trim();
+        const respuesta = textoCompleto.includes(":") ? textoCompleto.split(":")[1].trim() : "";
+        paresJugador.push(`${frase}:${respuesta}`);
       });
 
-      const paresEsperados = (p.respuesta || "").split(",").map(e => e.trim());
-      const setJugador = new Set(paresJugador);
-      const setEsperado = new Set(paresEsperados);
+      const paresEsperados = (p.respuesta || "").split(",").map(e => e.trim().toLowerCase());
+      const paresJugadorNormalizados = paresJugador.map(e => e.trim().toLowerCase());
 
-      const iguales = paresJugador.length === paresEsperados.length &&
-                      [...setJugador].every(r => setEsperado.has(r));
+      const iguales = paresEsperados.length === paresJugadorNormalizados.length &&
+                      paresEsperados.every(p => paresJugadorNormalizados.includes(p));
 
       if (!iguales) todoBien = false;
       return;
+
     } else {
       const input = document.getElementById('respuesta' + i);
       if (input) valor = input.value.trim().toLowerCase();
