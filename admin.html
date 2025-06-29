@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Respuestas guardadas</title>
+</head>
+<body>
+  <h1>📩 Respuesta guardada del Día 3</h1>
+  <p><b>Frase:</b> <span id="respuesta"></span></p>
+
+  <script>
+    const r = localStorage.getItem('respuesta_dia3') || 'Aún no hay respuesta guardada.';
+    document.getElementById('respuesta').innerText = r;
+  </script>
+</body>
+</html>

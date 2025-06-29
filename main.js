@@ -57,7 +57,7 @@ function renderHome() {
       html += `<button disabled>Día ${i} 🔒</button>`;
     }
   }
-  html += "<br/><br/><a href='diploma.html'>🎓 Ver diploma</a>";
+  html += "<br/><br/><a href='admin.html'>📩 Ver respuestas</a>";
   app.innerHTML = html;
 }
 
@@ -91,15 +91,12 @@ function renderDay(dayKey) {
       }
       html += `</div>`;
     } else if (p.tipo === 'drag') {
-    const frases = ["Deporte", "Tu casa", "Sanxenxo", "Madrid"];
-    const respuestas = ["Cita", "Pulpeira", "Tommy", "Paddel"];
-
-    // Mezclamos aleatoriamente las respuestas:
-    respuestas.sort(() => Math.random() - 0.5);
+      const frases = ["Deporte", "Tu casa", "Sanxenxo", "Madrid"];
+      const respuestas = ["Cita", "Pulpeira", "Tommy", "Paddel"];
       html += `
         <div class="drag-container">
           <div class="drag-col" id="drop-col-${i}">
-            ${frases.map((f, j) => `<div class="drop-zone" data-frase="${f}">${f}</div>`).join("")}
+            ${frases.map((f) => `<div class="drop-zone" data-frase="${f}">${f}</div>`).join("")}
           </div>
           <div class="drag-col" id="drag-col-${i}">
             ${respuestas.map(r => `<div class="draggable" draggable="true">${r}</div>`).join("")}
@@ -143,23 +140,18 @@ function verificar(dayKey) {
     } else if (p.tipo === 'drag') {
       const zonas = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
       const paresJugador = [];
-
       zonas.forEach(z => {
         const frase = z.dataset.frase;
-        const textoCompleto = z.textContent.trim();
-        const respuesta = textoCompleto.includes(":") ? textoCompleto.split(":")[1].trim() : "";
-        paresJugador.push(`${frase}:${respuesta}`);
+        const texto = z.textContent.replace(frase, "").trim();
+        paresJugador.push(`${frase}:${texto}`);
       });
 
-      const paresEsperados = (p.respuesta || "").split(",").map(e => e.trim().toLowerCase());
-      const paresJugadorNormalizados = paresJugador.map(e => e.trim().toLowerCase());
-
-      const iguales = paresEsperados.length === paresJugadorNormalizados.length &&
-                      paresEsperados.every(p => paresJugadorNormalizados.includes(p));
-
-      if (!iguales) todoBien = false;
+      const paresCorrectos = p.respuesta.split(",").map(e => e.trim());
+      const correctas = paresJugador.filter(p => paresCorrectos.includes(p));
+      if (correctas.length !== paresCorrectos.length) {
+        todoBien = false;
+      }
       return;
-
     } else {
       const input = document.getElementById('respuesta' + i);
       if (input) valor = input.value.trim().toLowerCase();
@@ -172,6 +164,12 @@ function verificar(dayKey) {
     }
   });
 
+  // Guardar la respuesta libre del día 3
+  if (todoBien && dayKey === 'dia3') {
+    const libre = document.getElementById('respuesta4')?.value || "";
+    localStorage.setItem('respuesta_dia3', libre);
+  }
+
   if (todoBien) {
     localStorage.setItem(dayKey, 'completo');
     alert("🎉 ¡Bien hecho! Has completado el día.");
@@ -180,9 +178,6 @@ function verificar(dayKey) {
     alert("❌ Hay algún error, inténtalo de nuevo.");
   }
 }
-
-
-
 
 function inicializarDragAndDrop() {
   const draggables = document.querySelectorAll(".draggable");
