@@ -91,8 +91,11 @@ function renderDay(dayKey) {
       }
       html += `</div>`;
     } else if (p.tipo === 'drag') {
-      const frases = ["Deporte", "Tu casa", "Sanxenxo", "Madrid"];
-      const respuestas = ["Cita", "Pulpeira", "Tommy", "Paddel"];
+    const frases = ["Deporte", "Tu casa", "Sanxenxo", "Madrid"];
+    const respuestas = ["Cita", "Pulpeira", "Tommy", "Paddel"];
+
+    // Mezclamos aleatoriamente las respuestas:
+    respuestas.sort(() => Math.random() - 0.5);
       html += `
         <div class="drag-container">
           <div class="drag-col" id="drop-col-${i}">
@@ -138,19 +141,25 @@ function verificar(dayKey) {
     } else if (p.tipo === 'candado-ui') {
       valor = obtenerCandadoRespuesta(i);
     } else if (p.tipo === 'drag') {
-      valor = [];
-      const zones = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
-      zones.forEach(zone => {
-        const frase = zone.dataset.frase;
-        const contenido = zone.textContent.replace(frase, "").trim();
-        valor.push(`${frase}:${contenido}`);
+      const zonas = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
+      const paresJugador = zonas.map ? zonas.map(z => {
+        const frase = z.dataset.frase;
+        const texto = z.textContent.replace(frase, "").trim();
+        return `${frase}:${texto}`;
+      }) : Array.from(zonas).map(z => {
+        const frase = z.dataset.frase;
+        const texto = z.textContent.replace(frase, "").trim();
+        return `${frase}:${texto}`;
       });
 
-      const esperado = (p.respuesta || "").split(",").map(x => x.trim()).sort().join(",");
-      const recibido = valor.map(x => x.trim()).sort().join(",");
-      if (esperado !== recibido) {
-        todoBien = false;
-      }
+      const paresEsperados = (p.respuesta || "").split(",").map(e => e.trim());
+      const setJugador = new Set(paresJugador);
+      const setEsperado = new Set(paresEsperados);
+
+      const iguales = paresJugador.length === paresEsperados.length &&
+                      [...setJugador].every(r => setEsperado.has(r));
+
+      if (!iguales) todoBien = false;
       return;
     } else {
       const input = document.getElementById('respuesta' + i);
@@ -172,6 +181,8 @@ function verificar(dayKey) {
     alert("❌ Hay algún error, inténtalo de nuevo.");
   }
 }
+
+
 
 
 function inicializarDragAndDrop() {
