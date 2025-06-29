@@ -138,17 +138,17 @@ function verificar(dayKey) {
     } else if (p.tipo === 'candado-ui') {
       valor = obtenerCandadoRespuesta(i);
     } else if (p.tipo === 'drag') {
-      const zonas = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
-      const paresJugador = [];
-      zonas.forEach(z => {
-        const frase = z.dataset.frase;
-        const texto = z.textContent.replace(frase, "").trim();
-        paresJugador.push(`${frase}:${texto}`);
+      valor = [];
+      const zones = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
+      zones.forEach(zone => {
+        const frase = zone.dataset.frase;
+        const contenido = zone.textContent.replace(frase, "").trim();
+        valor.push(`${frase}:${contenido}`);
       });
 
-      const paresCorrectos = p.respuesta.split(",").map(e => e.trim());
-      const correctas = paresJugador.filter(p => paresCorrectos.includes(p));
-      if (correctas.length !== paresCorrectos.length) {
+      const esperado = (p.respuesta || "").split(",").map(x => x.trim()).sort().join(",");
+      const recibido = valor.map(x => x.trim()).sort().join(",");
+      if (esperado !== recibido) {
         todoBien = false;
       }
       return;
@@ -172,6 +172,7 @@ function verificar(dayKey) {
     alert("❌ Hay algún error, inténtalo de nuevo.");
   }
 }
+
 
 function inicializarDragAndDrop() {
   const draggables = document.querySelectorAll(".draggable");
