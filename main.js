@@ -42,6 +42,25 @@ for (let i = 1; i <= 11; i++) {
   days[`dia${i}`] = { mensaje: `Día ${i} desbloqueado 💖`, pruebas };
 }
 
+function renderHome() {
+  let html = "<h1>🌟 Elige un día desbloqueado 🌟</h1>";
+  const today = new Date();
+  for (let i = 1; i <= 11; i++) {
+    const key = `dia${i}`;
+    const unlockDate = new Date(startDate);
+    unlockDate.setDate(startDate.getDate() + i - 1);
+    const completado = localStorage.getItem(key) === 'completo';
+    const prevDone = i === 1 || localStorage.getItem(`dia${i - 1}`) === 'completo';
+    if (today >= unlockDate && prevDone) {
+      html += `<button onclick='renderDay("${key}")'>Día ${i} ${completado ? "✅" : ""}</button>`;
+    } else {
+      html += `<button disabled>Día ${i} 🔒</button>`;
+    }
+  }
+  html += "<br/><br/><a href='diploma.html'>🎓 Ver diploma</a>";
+  app.innerHTML = html;
+}
+
 function renderDay(dayKey) {
   const data = days[dayKey];
   if (!data) {
@@ -119,16 +138,17 @@ function verificar(dayKey) {
     } else if (p.tipo === 'candado-ui') {
       valor = obtenerCandadoRespuesta(i);
     } else if (p.tipo === 'drag') {
-      valor = [];
-      const zones = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
-      zones.forEach(zone => {
-        const frase = zone.dataset.frase;
-        const contenido = zone.textContent.replace(frase, "").trim();
-        valor.push(`${frase}:${contenido}`);
+      const zonas = document.querySelectorAll(`#drop-col-${i} .drop-zone`);
+      const paresJugador = [];
+      zonas.forEach(z => {
+        const frase = z.dataset.frase;
+        const texto = z.textContent.replace(frase, "").trim();
+        paresJugador.push(`${frase}:${texto}`);
       });
-      const esperado = (p.respuesta || "").split(",").map(e => e.trim()).sort().join(",");
-      const recibido = valor.sort().join(",");
-      if (esperado.toLowerCase() !== recibido.toLowerCase()) {
+
+      const paresCorrectos = p.respuesta.split(",").map(e => e.trim());
+      const correctas = paresJugador.filter(p => paresCorrectos.includes(p));
+      if (correctas.length !== paresCorrectos.length) {
         todoBien = false;
       }
       return;
@@ -169,7 +189,7 @@ function inicializarDragAndDrop() {
       e.preventDefault();
       const texto = e.dataTransfer.getData("text/plain");
       const original = z.dataset.frase;
-      const correcto = days[dayKey].pruebas.find(p => p.tipo === "drag").respuesta;
+      const correcto = days.dia2.pruebas.find(p => p.tipo === "drag").respuesta;
       const pares = correcto.split(",");
       const esperado = pares.find(p => p.startsWith(original))?.split(":")[1];
       if (texto === esperado) {
@@ -181,25 +201,6 @@ function inicializarDragAndDrop() {
       }
     });
   });
-}
-
-function renderHome() {
-  let html = "<h1>🌟 Elige un día desbloqueado 🌟</h1>";
-  const today = new Date();
-  for (let i = 1; i <= 11; i++) {
-    const key = `dia${i}`;
-    const unlockDate = new Date(startDate);
-    unlockDate.setDate(startDate.getDate() + i - 1);
-    const completado = localStorage.getItem(key) === 'completo';
-    const prevDone = i === 1 || localStorage.getItem(`dia${i - 1}`) === 'completo';
-    if (today >= unlockDate && prevDone) {
-      html += `<button onclick='renderDay("${key}")'>Día ${i} ${completado ? "✅" : ""}</button>`;
-    } else {
-      html += `<button disabled>Día ${i} 🔒</button>`;
-    }
-  }
-  html += "<br/><br/><a href='diploma.html'>🎓 Ver diploma</a>";
-  app.innerHTML = html;
 }
 
 renderHome();
