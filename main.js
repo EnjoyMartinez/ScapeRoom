@@ -30,6 +30,15 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "candado", contenido: "Introduce la suma de 2+3+0+6 (usa el candado)", respuesta: "11" },
       { tipo: "libre", contenido: "Escribe una frase que resuma cómo te has sentido haciendo este juego" }
     ];
+  } else if (i === 4) {
+    pruebas = [
+      { tipo: "texto", contenido: "🕵️‍♂️ Prueba 1: Descifra este anagrama: 'RAMA LUZ ENGAÑA'", respuesta: "la gran manzana" },
+      { tipo: "texto", contenido: "🔐 Prueba 2: Usando la respuesta anterior como clave Vigenère, descifra: 'ZICVTWQNGRZGVTWAVZHCQYGLMGJ'", respuesta: "bienvenidoalagranmanzana" },
+      { tipo: "candado", contenido: "🎯 Prueba 3: Cuenta las letras únicas en la respuesta anterior y multiplica por 2. Usa el candado para poner el número", respuesta: "24" },
+      { tipo: "binario", contenido: "💻 Prueba 4: Traduce este binario a texto (usa ASCII): '01000001 01101110 01110100 01101001 01100111 01110101 01100001'", respuesta: "Antigua" },
+      { tipo: "morse", contenido: "📡 Prueba 5: Traduce este mensaje en morse: '.- .-. - . -- .. ... ..-'", respuesta: "artemisu" },
+      { tipo: "texto", contenido: "🧠 Prueba 6: Usando la última palabra y una ciudad de la prueba 1, ¿a qué misión secreta te suena?", respuesta: "misión artemisa nueva york" }
+    ];
   } else {
     pruebas = [
       { tipo: "texto", contenido: `Adivina esta palabra clave del día ${i}`, respuesta: `respuesta${i}` },
@@ -125,6 +134,8 @@ function obtenerCandadoRespuesta(pIndex) {
   return Array.from({ length: 4 }, (_, j) => document.getElementById(`digit-${pIndex}-${j}`).innerText).join('');
 }
 
+let intentosFallidosDia4Prueba2 = 0; // Contador global
+
 function verificar(dayKey) {
   const data = days[dayKey];
   let todoBien = true;
@@ -161,14 +172,16 @@ function verificar(dayKey) {
 
     if (!esLibre && valor.toLowerCase() !== (p.respuesta || "").toLowerCase()) {
       todoBien = false;
+
+      // 👉 Si es día 4, prueba 2 (índice 1), aumentamos contador y damos pista
+      if (dayKey === 'dia4' && i === 1) {
+        intentosFallidosDia4Prueba2++;
+        if (intentosFallidosDia4Prueba2 >= 3) {
+          alert("💡 Pista: Usa como clave Vigenère la ciudad del anagrama de la Prueba 1. Es conocida como 'La Gran Manzana' 🍎");
+        }
+      }
     }
   });
-
-  // Guardar la respuesta libre del día 3
-  if (todoBien && dayKey === 'dia3') {
-    const libre = document.getElementById('respuesta4')?.value || "";
-    localStorage.setItem('respuesta_dia3', libre);
-  }
 
   if (todoBien) {
     localStorage.setItem(dayKey, 'completo');
