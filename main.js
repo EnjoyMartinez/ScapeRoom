@@ -26,7 +26,7 @@ for (let i = 1; i <= 11; i++) {
     pruebas = [
       { tipo: "texto", contenido: "Suma los dígitos del candado del día anterior (DDMM) y escribe el resultado", respuesta: "13" },
       { tipo: "texto", contenido: "Convierte los dígitos del candado del día anterior en letras del abecedario español (A=1...Ñ=15...Z=27)", respuesta: "biaa" },
-      { tipo: "opciones", contenido: "¿Qué letra corresponde al número 14 en el abecedario español?", opciones: ["Ñ", "N", "O", "M"], respuesta: "Ñ" },
+      { tipo: "opciones", contenido: "¿Qué letra corresponde al número 15 en el abecedario español?", opciones: ["Ñ", "N", "O", "M"], respuesta: "Ñ" },
       { tipo: "candado", contenido: "Introduce la suma de 2+3+0+6 (usa el candado)", respuesta: "11" },
       { tipo: "libre", contenido: "Escribe una frase que resuma cómo te has sentido haciendo este juego" }
     ];
