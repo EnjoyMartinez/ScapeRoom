@@ -32,12 +32,11 @@ for (let i = 1; i <= 11; i++) {
     ];
   } else if (i === 4) {
     pruebas = [
-      { tipo: "texto", contenido: "🕵️‍♂️ Prueba 1: Descifra este anagrama: 'RAMA LUZ ENGAÑA'", respuesta: "la gran manzana" },
+      { tipo: "texto", contenido: "🕵️‍♂️ Prueba 1: Descifra este anagrama: 'GANAR LA MANZALA'", respuesta: "la gran manzana" },
       { tipo: "texto", contenido: "🔐 Prueba 2: Usando la respuesta anterior como clave Vigenère, descifra: 'ZICVTWQNGRZGVTWAVZHCQYGLMGJ'", respuesta: "bienvenidoalagranmanzana" },
       { tipo: "candado", contenido: "🎯 Prueba 3: Cuenta las letras únicas en la respuesta anterior y multiplica por 2. Usa el candado para poner el número", respuesta: "24" },
       { tipo: "binario", contenido: "💻 Prueba 4: Traduce este binario a texto (usa ASCII): '01000001 01101110 01110100 01101001 01100111 01110101 01100001'", respuesta: "Antigua" },
-      { tipo: "morse", contenido: "📡 Prueba 5: Traduce este mensaje en morse: '.- .-. - . -- .. ... ..-'", respuesta: "artemisu" },
-      { tipo: "texto", contenido: "🧠 Prueba 6: Usando la última palabra y una ciudad de la prueba 1, ¿a qué misión secreta te suena?", respuesta: "misión artemisa nueva york" }
+      { tipo: "morse", contenido: "📡 Prueba 5: Traduce este mensaje en morse: '.- .-. - . -- .. ... ..-'", respuesta: "artemisu" }
     ];
   } else {
     pruebas = [
