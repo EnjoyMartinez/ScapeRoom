@@ -129,7 +129,7 @@ function renderDay(dayKey) {
       html += `<p>🎨 Código: Rojo-Azul-Verde</p>`;
       html += `<input type='text' id='respuesta${i}' placeholder='Ej: RGB' />`;
     } else if (p.tipo === 'texto-oculto') {
-      html += `<button onclick="alert('🎁 ¡Sorpresa! Esta es la palabra clave 😉')" style="background-image: linear-gradient(to right, pink, white); color: transparent; text-shadow: 0 0 5px rgba(0,0,0,0.3);" id='respuesta${i}'>Haz click</button>`;
+      html += `<button onclick="alert('🎁 ¡Sorpresa! Esta es la palabra clave 😉')" class="texto-oculto" id='respuesta${i}'>Haz click</button>`;
     }
     else {
       html += `<input type='text' id='respuesta${i}' placeholder='Tu respuesta...' />`;

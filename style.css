@@ -140,3 +140,21 @@ a:hover {
   background-color: #f8d7da !important;
   border: 2px solid #dc3545 !important;
 }
+
+button.texto-oculto {
+  background-image: linear-gradient(to right, #ffc0cb, #ffffff);
+  border: none;
+  color: transparent;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.texto-oculto:hover {
+  background-image: linear-gradient(to right, #ff99bb, #ffccdd);
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+}
