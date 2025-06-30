@@ -39,39 +39,15 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "morse", contenido: "📡 Prueba 5: Traduce este mensaje en morse: '.- .-. - . -- .. ... ..-'", respuesta: "artemisu" }
     ];
   } else if (i === 5) {
-  pruebas = [
-    {
-      tipo: "drag",
-      contenido: "🔗 Prueba 1: Relaciona correctamente los conceptos",
-      respuesta: "Fuego:Supervivencia,ADN:Vida,Gravedad:Tierra,Luz:Ver"
-    },
-    {
-      tipo: "secreto-visual",
-      contenido: "🖼 Prueba 2: Encuentra la zona secreta en la imagen y haz clic",
-      respuesta: "desbloqueado"
-    },
-    {
-      tipo: "texto",
-      contenido: "🕰 Prueba 3: ¿Qué hora será dentro de la mitad del tiempo que falta para las 12 si ahora son las 8?",
-      respuesta: "10"
-    },
-    {
-      tipo: "binario",
-      contenido: "💻 Prueba 4: Descifra el mensaje binario → 01010011 01101111 01110010 01110000 01110010 01100101 01110011 01100001",
-      respuesta: "sorpresa"
-    },
-    {
-      tipo: "candado",
-      contenido: "🧠 Prueba 5: Sudoku 4x4. Descifra los 4 números clave en orden para abrir el candado. (Respuesta de ejemplo: 2413)",
-      respuesta: "2413"
-    },
-    {
-      tipo: "texto",
-      contenido: "🗺 Prueba 6: Desde la posición inicial C3, muévete 2 al este, 1 al sur, 1 al oeste. ¿Qué letra estás pisando si el mapa es:<br>A1=A, A2=B, A3=C...",
-      respuesta: "g"
-    }
-  ];
-} else {
+    pruebas = [
+      { tipo: "emoji", contenido: "🧠 Prueba 1: ¿Qué emoción representa este emoji? 😱", respuesta: "miedo" },
+      { tipo: "palabra-escondida", contenido: "🔍 Prueba 2: Encuentra la palabra oculta en: 'ElRelojAvanzaRápidoEntreSombras' (pista: tiene que ver con tiempo)", respuesta: "reloj" },
+      { tipo: "codigo-colores", contenido: "🎨 Prueba 3: Traduce el código de colores: Rojo-Azul-Verde = ?", respuesta: "rgb" },
+      { tipo: "texto-oculto", contenido: "🕵️‍♀️ Prueba 4: Observa el fondo del botón para encontrar una palabra clave", respuesta: "sorpresa" },
+      { tipo: "candado-ui", contenido: "🔒 Prueba 5: ¿Qué número binario es 0101? (escríbelo en decimal)", respuesta: "5" },
+      { tipo: "binario", contenido: "💻 Prueba 6: Traduce esto: 01001100 01101111 01100111 01110010 01100001 01101101 01100001", respuesta: "lograma" }
+    ];
+  }else {
     pruebas = [
       { tipo: "texto", contenido: `Adivina esta palabra clave del día ${i}`, respuesta: `respuesta${i}` },
       { tipo: "binario", contenido: "01010100 01100101 00100000 01100001 01101101 01101111", respuesta: "Te amo" },
@@ -144,7 +120,18 @@ function renderDay(dayKey) {
           </div>
         </div>
       `;
-    } else {
+    }   else if (p.tipo === 'emoji') {
+      html += `<input type='text' id='respuesta${i}' placeholder='Tu respuesta... (Ej: miedo)' />`;
+    } else if (p.tipo === 'palabra-escondida') {
+      html += `<p style="font-weight:bold">${p.contenido}</p>`;
+      html += `<input type='text' id='respuesta${i}' placeholder='Palabra oculta...' />`;
+    } else if (p.tipo === 'codigo-colores') {
+      html += `<p>🎨 Código: Rojo-Azul-Verde</p>`;
+      html += `<input type='text' id='respuesta${i}' placeholder='Ej: RGB' />`;
+    } else if (p.tipo === 'texto-oculto') {
+      html += `<button onclick="alert('🎁 ¡Sorpresa! Esta es la palabra clave 😉')" style="background-image: linear-gradient(to right, pink, white); color: transparent; text-shadow: 0 0 5px rgba(0,0,0,0.3);" id='respuesta${i}'>Haz click</button>`;
+    }
+    else {
       html += `<input type='text' id='respuesta${i}' placeholder='Tu respuesta...' />`;
     }
   });
@@ -166,7 +153,7 @@ function obtenerCandadoRespuesta(pIndex) {
   return Array.from({ length: 4 }, (_, j) => document.getElementById(`digit-${pIndex}-${j}`).innerText).join('');
 }
 
-let intentosFallidosDia4Prueba2 = 0; // Contador global
+let intentosFallidosDia4Prueba2 = 0;
 
 function verificar(dayKey) {
   const data = days[dayKey];
@@ -195,17 +182,20 @@ function verificar(dayKey) {
         todoBien = false;
       }
       return;
+    } else if (p.tipo === 'texto-oculto') {
+      // El botón no tiene campo input, así que asumimos la respuesta correcta
+      valor = p.respuesta.toLowerCase();
     } else {
       const input = document.getElementById('respuesta' + i);
       if (input) valor = input.value.trim().toLowerCase();
     }
 
-    const esLibre = p.tipo === 'sentimental' || p.tipo === 'libre';
+    const esLibre = ['sentimental', 'libre'].includes(p.tipo);
 
     if (!esLibre && valor.toLowerCase() !== (p.respuesta || "").toLowerCase()) {
       todoBien = false;
 
-      // 👉 Si es día 4, prueba 2 (índice 1), aumentamos contador y damos pista
+      // Día 4, Prueba 2 → pista tras 3 fallos
       if (dayKey === 'dia4' && i === 1) {
         intentosFallidosDia4Prueba2++;
         if (intentosFallidosDia4Prueba2 >= 3) {
