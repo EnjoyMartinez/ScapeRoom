@@ -38,7 +38,40 @@ for (let i = 1; i <= 11; i++) {
       { tipo: "binario", contenido: "💻 Prueba 4: Traduce este binario a texto (usa ASCII): '01000001 01101110 01110100 01101001 01100111 01110101 01100001'", respuesta: "Antigua" },
       { tipo: "morse", contenido: "📡 Prueba 5: Traduce este mensaje en morse: '.- .-. - . -- .. ... ..-'", respuesta: "artemisu" }
     ];
-  } else {
+  } else if (i === 5) {
+  pruebas = [
+    {
+      tipo: "drag",
+      contenido: "🔗 Prueba 1: Relaciona correctamente los conceptos",
+      respuesta: "Fuego:Supervivencia,ADN:Vida,Gravedad:Tierra,Luz:Ver"
+    },
+    {
+      tipo: "secreto-visual",
+      contenido: "🖼 Prueba 2: Encuentra la zona secreta en la imagen y haz clic",
+      respuesta: "desbloqueado"
+    },
+    {
+      tipo: "texto",
+      contenido: "🕰 Prueba 3: ¿Qué hora será dentro de la mitad del tiempo que falta para las 12 si ahora son las 8?",
+      respuesta: "10"
+    },
+    {
+      tipo: "binario",
+      contenido: "💻 Prueba 4: Descifra el mensaje binario → 01010011 01101111 01110010 01110000 01110010 01100101 01110011 01100001",
+      respuesta: "sorpresa"
+    },
+    {
+      tipo: "candado",
+      contenido: "🧠 Prueba 5: Sudoku 4x4. Descifra los 4 números clave en orden para abrir el candado. (Respuesta de ejemplo: 2413)",
+      respuesta: "2413"
+    },
+    {
+      tipo: "texto",
+      contenido: "🗺 Prueba 6: Desde la posición inicial C3, muévete 2 al este, 1 al sur, 1 al oeste. ¿Qué letra estás pisando si el mapa es:<br>A1=A, A2=B, A3=C...",
+      respuesta: "g"
+    }
+  ];
+} else {
     pruebas = [
       { tipo: "texto", contenido: `Adivina esta palabra clave del día ${i}`, respuesta: `respuesta${i}` },
       { tipo: "binario", contenido: "01010100 01100101 00100000 01100001 01101101 01101111", respuesta: "Te amo" },
