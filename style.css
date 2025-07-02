@@ -159,29 +159,48 @@ button.texto-oculto:hover {
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
 }
 
+/* Puertas minijuego (Día 5) */
 .puertas-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
   margin-top: 20px;
 }
-.puerta {
+
+.puerta-opcion {
   cursor: pointer;
   text-align: center;
 }
-.puerta img {
+
+.puerta-opcion img {
   width: 100px;
   height: auto;
 }
-.etiqueta {
-  display: block;
-  margin-top: 8px;
-  font-weight: bold;
-}
+
+/* Imagen final al ganar */
 .final-img {
   max-width: 80%;
   height: auto;
   margin: 20px auto;
   display: block;
+}
+
+/* Imagen duda fija abajo a la derecha */
+.thinking-img {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 60px;
+  display: none;
+  z-index: 100;
+}
+
+/* Media Query para pantallas más grandes */
+@media (min-width: 600px) {
+  .puertas-container {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

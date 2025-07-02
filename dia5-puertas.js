@@ -51,19 +51,20 @@ function iniciarDia5Puertas() {
 function mostrarPregunta() {
   const pregunta = preguntasPuertas[pasoActual];
   let html = `<h2>${pregunta.pregunta}</h2>`;
-  html += `<div id="puertas" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;">`;
+  html += `<div id="puertas" class="puertas-container">`;
 
   pregunta.opciones.forEach(op => {
     html += `
-      <div onclick="verificarRespuesta('${op}')" style="cursor:pointer; text-align:center;">
-        <img src="imagenes/puerta.png" style="width: 80px; height: 120px;"><br>${op}
+      <div onclick="verificarRespuesta('${op}')" class="puerta-opcion">
+        <img src="imagenes/puerta.png" alt="puerta"><br>${op}
       </div>`;
   });
 
-  html += `</div><img src="imagenes/duda.png" id="thinking" style="position:fixed; bottom:10px; right:10px; width:60px; display:none;">`;
+  html += `</div><img src="imagenes/duda.png" id="thinking" class="thinking-img">`;
 
   document.getElementById("app").innerHTML = html;
 }
+
 
 function verificarRespuesta(opcion) {
   document.getElementById("thinking").style.display = "block";
