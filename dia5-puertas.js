@@ -56,11 +56,11 @@ function mostrarPregunta() {
   pregunta.opciones.forEach(op => {
     html += `
       <div onclick="verificarRespuesta('${op}')" style="cursor:pointer; text-align:center;">
-        <img src="imagens/puerta.png" style="width: 80px; height: 120px;"><br>${op}
+        <img src="imagenes/puerta.png" style="width: 80px; height: 120px;"><br>${op}
       </div>`;
   });
 
-  html += `</div><img src="imagens/duda.png" id="thinking" style="position:fixed; bottom:10px; right:10px; width:60px; display:none;">`;
+  html += `</div><img src="imagenes/duda.png" id="thinking" style="position:fixed; bottom:10px; right:10px; width:60px; display:none;">`;
 
   document.getElementById("app").innerHTML = html;
 }
@@ -89,7 +89,7 @@ function verificarRespuesta(opcion) {
 function mostrarFallo() {
   document.getElementById("app").innerHTML = `
     <h2>¡Oh no! Fallaste 😢</h2>
-    <img src="imagens/triste.png" style="width: 150px;"><br/>
+    <img src="imagenes/triste.png" style="width: 150px;"><br/>
     <p>Volviendo al principio...</p>
   `;
   pasoActual = 0;
@@ -99,7 +99,7 @@ function mostrarFallo() {
 function mostrarGanador() {
   document.getElementById("app").innerHTML = `
     <h2>🎉 ¡Has ganado!</h2>
-    <img src="imagens/ganador.png" style="width: 200px;"><br/>
+    <img src="imagenes/ganador.png" style="width: 200px;"><br/>
     <p>Has superado todas las puertas.</p>
   `;
   setTimeout(() => {
