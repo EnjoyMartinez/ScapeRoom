@@ -175,7 +175,7 @@ button.texto-oculto:hover {
 
 .puerta-opcion img {
   width: 40vw;       /* 40% del ancho de la pantalla en móvil */
-  max-width: 120px;   /* no exceder este ancho */
+  max-width: 60px;   /* no exceder este ancho */
   height: auto;
 }
 
