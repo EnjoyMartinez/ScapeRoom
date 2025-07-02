@@ -50,12 +50,13 @@ label {
   cursor: pointer;
 }
 
-div {
+div:not(.puerta-opcion):not(.puertas-container):not(.drag-container):not(.drag-col):not(.drop-zone) {
   margin-bottom: 20px;
   background-color: #ffe4ec;
   padding: 12px;
   border-radius: 10px;
 }
+
 
 a {
   display: block;
