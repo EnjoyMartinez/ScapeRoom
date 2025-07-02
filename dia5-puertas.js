@@ -1,46 +1,47 @@
 
 const preguntasPuertas = [
   {
-    pregunta: "¿Cuál es la capital de Francia?",
-    opciones: ["Madrid", "París", "Roma", "Berlín"],
-    correcta: "París"
+    pregunta: "Si un avión se estrella justo en la frontera entre Francia y España, ¿dónde entierran a los supervivientes?",
+    opciones: ["En Francia", "En España", "En ambos", "No se entierran"],
+    correcta: "No se entierran"
   },
   {
-    pregunta: "¿Qué animal ladra?",
-    opciones: ["Gato", "Perro", "Vaca", "Pato"],
-    correcta: "Perro"
+    pregunta: "¿Qué número sigue en esta serie? 1, 1, 2, 3, 5, 8, ...",
+    opciones: ["11", "13", "15", "21"],
+    correcta: "13"
   },
   {
-    pregunta: "¿Cuál es el color del cielo?",
-    opciones: ["Rojo", "Verde", "Azul", "Negro"],
-    correcta: "Azul"
+    pregunta: "¿Cuál es la palabra que está mal escrita en todos los diccionarios?",
+    opciones: ["Error", "Equivocado", "Mal", "Mal escrita"],
+    correcta: "Mal escrita"
   },
   {
-    pregunta: "¿Cuántas patas tiene una araña?",
-    opciones: ["4", "6", "8", "10"],
-    correcta: "8"
+    pregunta: "Tienes una cerilla y entras en una cabaña oscura. Dentro hay una vela, una lámpara de aceite y una chimenea. ¿Qué enciendes primero?",
+    opciones: ["La vela", "La lámpara", "La cerilla", "La chimenea"],
+    correcta: "La cerilla"
   },
   {
-    pregunta: "¿Qué fruta es amarilla?",
-    opciones: ["Manzana", "Plátano", "Fresa", "Uva"],
-    correcta: "Plátano"
+    pregunta: "Si 5 máquinas hacen 5 piezas en 5 minutos, ¿cuánto tardan 100 máquinas en hacer 100 piezas?",
+    opciones: ["5 minutos", "100 minutos", "50 minutos", "1 minuto"],
+    correcta: "5 minutos"
   },
   {
-    pregunta: "¿Cuál es el día después del lunes?",
-    opciones: ["Domingo", "Miércoles", "Martes", "Viernes"],
-    correcta: "Martes"
+    pregunta: "¿Cuál es el planeta más cercano al Sol?",
+    opciones: ["Venus", "Tierra", "Marte", "Mercurio"],
+    correcta: "Mercurio"
   },
   {
-    pregunta: "¿Qué número es par?",
-    opciones: ["3", "7", "9", "2"],
-    correcta: "2"
+    pregunta: "¿Qué pesa más: 1 kg de plomo o 1 kg de plumas?",
+    opciones: ["El plomo", "Las plumas", "Pesan lo mismo", "Depende del volumen"],
+    correcta: "Pesan lo mismo"
   },
   {
-    pregunta: "¿Qué estación es más calurosa?",
-    opciones: ["Verano", "Invierno", "Otoño", "Primavera"],
-    correcta: "Verano"
+    pregunta: "¿Cuál de estas palabras es un palíndromo?",
+    opciones: ["Radar", "Camión", "Papel", "Casa"],
+    correcta: "Radar"
   }
 ];
+
 
 let pasoActual = 0;
 
