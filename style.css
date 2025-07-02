@@ -50,13 +50,12 @@ label {
   cursor: pointer;
 }
 
-div:not(.puerta-opcion):not(.puertas-container):not(.drag-container):not(.drag-col):not(.drop-zone) {
+div {
   margin-bottom: 20px;
   background-color: #ffe4ec;
   padding: 12px;
   border-radius: 10px;
 }
-
 
 a {
   display: block;
@@ -176,7 +175,7 @@ button.texto-oculto:hover {
 
 .puerta-opcion img {
   width: 40vw;       /* 40% del ancho de la pantalla en móvil */
-  max-width: 60px;   /* no exceder este ancho */
+  max-width: 160px;   /* no exceder este ancho */
   height: auto;
 }
 
