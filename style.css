@@ -174,8 +174,16 @@ button.texto-oculto:hover {
 }
 
 .puerta-opcion img {
-  width: 100px;
+  width: 40vw;       /* 40% del ancho de la pantalla en móvil */
+  max-width: 120px;   /* no exceder este ancho */
   height: auto;
+}
+
+@media (min-width: 600px) {
+  .puerta-opcion img {
+    width: 20vw;
+    max-width: 100px;
+  }
 }
 
 /* Imagen final al ganar */
@@ -191,10 +199,13 @@ button.texto-oculto:hover {
   position: fixed;
   bottom: 10px;
   right: 10px;
-  width: 60px;
+  width: 14vw;           /* 14% del ancho de la pantalla */
+  max-width: 60px;       /* nunca más de 60px */
+  height: auto;
   display: none;
   z-index: 100;
 }
+
 
 /* Media Query para pantallas más grandes */
 @media (min-width: 600px) {
