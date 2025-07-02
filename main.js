@@ -79,6 +79,12 @@ function renderHome() {
 }
 
 function renderDay(dayKey) {
+  // ✅ Redirección especial para el Día 5 al nuevo minijuego
+  if (dayKey === "dia5") {
+    window.location.href = "dia5-puertas.html";
+    return;
+  }
+
   const data = days[dayKey];
   if (!data) {
     app.innerHTML = "<h1>⏳ Aún no se ha desbloqueado el siguiente bloque</h1>";
@@ -120,7 +126,7 @@ function renderDay(dayKey) {
           </div>
         </div>
       `;
-    }   else if (p.tipo === 'emoji') {
+    } else if (p.tipo === 'emoji') {
       html += `<input type='text' id='respuesta${i}' placeholder='Tu respuesta... (Ej: miedo)' />`;
     } else if (p.tipo === 'palabra-escondida') {
       html += `<p style="font-weight:bold">${p.contenido}</p>`;
@@ -130,8 +136,7 @@ function renderDay(dayKey) {
       html += `<input type='text' id='respuesta${i}' placeholder='Ej: RGB' />`;
     } else if (p.tipo === 'texto-oculto') {
       html += `<button onclick="alert('🎁 ¡Sorpresa! Esta es la palabra clave 😉')" class="texto-oculto" id='respuesta${i}'>Haz click</button>`;
-    }
-    else {
+    } else {
       html += `<input type='text' id='respuesta${i}' placeholder='Tu respuesta...' />`;
     }
   });
@@ -141,6 +146,7 @@ function renderDay(dayKey) {
 
   inicializarDragAndDrop();
 }
+
 
 function modificarDigito(pIndex, dIndex, cambio) {
   const id = `digit-${pIndex}-${dIndex}`;
