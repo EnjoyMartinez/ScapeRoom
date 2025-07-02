@@ -67,10 +67,8 @@ function mostrarPregunta() {
 
 
 function verificarRespuesta(opcion) {
-  document.getElementById("thinking").style.display = "block";
 
   setTimeout(() => {
-    document.getElementById("thinking").style.display = "none";
 
     const correcta = preguntasPuertas[pasoActual].correcta;
 

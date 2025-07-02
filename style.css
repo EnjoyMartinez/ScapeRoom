@@ -202,7 +202,7 @@ button.texto-oculto:hover {
   width: 14vw;           /* 14% del ancho de la pantalla */
   max-width: 60px;       /* nunca más de 60px */
   height: auto;
-  display: none;
+  display: block;
   z-index: 100;
 }
 
