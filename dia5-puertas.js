@@ -100,7 +100,7 @@ function mostrarFallo() {
 function mostrarGanador() {
   document.getElementById("app").innerHTML = `
     <h2>🎉 ¡Has ganado!</h2>
-    <img src="imagenes/ganador.png" style="width: 200px;"><br/>
+    <img src="imagenes/ganadora.png" style="width: 200px;"><br/>
     <p>Has superado todas las puertas.</p>
   `;
   setTimeout(() => {
