@@ -84,6 +84,14 @@ function renderDay(dayKey) {
     window.location.href = "dia5-puertas.html";
     return;
   }
+  if (dayKey === "dia6") {
+  window.location.href = "dia6-puertas.html";
+  return;
+  }
+  if (dayKey === "dia7") {
+    window.location.href = "dia7-puertas.html";
+    return;
+  }
 
   const data = days[dayKey];
   if (!data) {
