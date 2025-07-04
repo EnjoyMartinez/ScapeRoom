@@ -1,5 +1,86 @@
 
-const preguntasPuertas = [{'pregunta': 'Pregunta difícil 1', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 2', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 3', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 4', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 5', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 6', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 7', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 8', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 9', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 10', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 11', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 12', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 13', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 14', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 15', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}, {'pregunta': 'Pregunta difícil 16', 'opciones': ['A', 'B', 'C', 'D'], 'correcta': 'A'}];
+const preguntasPuertas = [
+  {
+    pregunta: "¿Cuál es la única letra que no aparece en ningún número del 1 al 99 escrito en español?",
+    opciones: ["K", "W", "Ñ", "Z"],
+    correcta: "K"
+  },
+  {
+    pregunta: "Si una docena de huevos cuesta 1,20€, ¿cuánto cuesta medio huevo?",
+    opciones: ["0,05€", "0,10€", "0,50€", "0,60€"],
+    correcta: "0,05€"
+  },
+  {
+    pregunta: "¿Qué instrumento mide la presión atmosférica?",
+    opciones: ["Anemómetro", "Barómetro", "Higrómetro", "Termómetro"],
+    correcta: "Barómetro"
+  },
+  {
+    pregunta: "¿Cuántos segundos hay en un día?",
+    opciones: ["8.640", "86.400", "864.000", "1.440"],
+    correcta: "86.400"
+  },
+  {
+    pregunta: "¿Cuál es el metal más ligero?",
+    opciones: ["Litio", "Aluminio", "Plomo", "Titanio"],
+    correcta: "Litio"
+  },
+  {
+    pregunta: "¿Qué filósofo escribió *La República*?",
+    opciones: ["Sócrates", "Aristóteles", "Platón", "Epicuro"],
+    correcta: "Platón"
+  },
+  {
+    pregunta: "¿Cuántos lados tiene un dodecágono?",
+    opciones: ["10", "12", "14", "16"],
+    correcta: "12"
+  },
+  {
+    pregunta: "¿Qué país no tiene ejército desde 1949?",
+    opciones: ["Costa Rica", "Panamá", "Islandia", "Suiza"],
+    correcta: "Costa Rica"
+  },
+  {
+    pregunta: "¿Cuál es el símbolo químico del oro?",
+    opciones: ["Ag", "Au", "Gd", "Go"],
+    correcta: "Au"
+  },
+  {
+    pregunta: "¿Qué palabra se lee igual de izquierda a derecha que de derecha a izquierda?",
+    opciones: ["Solos", "Rana", "Casa", "Ratón"],
+    correcta: "Solos"
+  },
+  {
+    pregunta: "¿Qué número representa la letra 'M' en números romanos?",
+    opciones: ["500", "1000", "50", "100"],
+    correcta: "1000"
+  },
+  {
+    pregunta: "¿Qué planeta tiene un día más largo que su año?",
+    opciones: ["Mercurio", "Venus", "Júpiter", "Marte"],
+    correcta: "Venus"
+  },
+  {
+    pregunta: "¿Qué parte del cuerpo humano sigue creciendo después de la muerte?",
+    opciones: ["Pelo", "Uñas", "Ambos", "Ninguno"],
+    correcta: "Ninguno"
+  },
+  {
+    pregunta: "¿Quién inventó el primer motor eléctrico funcional?",
+    opciones: ["Tesla", "Faraday", "Edison", "Volta"],
+    correcta: "Faraday"
+  },
+  {
+    pregunta: "¿Cuál es la palabra más usada en el idioma español?",
+    opciones: ["Hola", "Que", "De", "El"],
+    correcta: "El"
+  },
+  {
+    pregunta: "¿Qué animal puede dormir con un ojo abierto?",
+    opciones: ["El perro", "El delfín", "El gato", "La lechuza"],
+    correcta: "El delfín"
+  }
+];
 
 let pasoActual = 0;
 
